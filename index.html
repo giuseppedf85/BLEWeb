@@ -1,0 +1,14 @@
+<script type="text/javascript">
+log('Requesting Bluetooth Device...');
+  navigator.bluetooth.requestDevice()
+  .then(device => device.connectGATT())
+  .then(server => server.getPrimaryService(serviceUuid))
+  .then(service => service.getCharacteristics())
+  .then(characteristics => {
+    log('> Characteristics: ' +
+      characteristics.map(c => c.uuid).join('\n' + ' '.repeat(19)));
+  })
+  .catch(error => {
+    log('Argh! ' + error);
+  });
+</script>
